@@ -24,7 +24,7 @@ Veil 是一个 macOS 菜单栏小工具：把常用的菜单栏图标收进 Veil
 
 ## 下载安装
 
-1. 从 [GitHub Releases](https://github.com/biyan113/Veil/releases) 下载 `Veil-<版本>-macos-arm64.zip`。
+1. 下载 [Veil-1.0.2-macos-arm64.zip](https://pan.quark.cn/s/f415f22870ca)（夸克网盘，永久有效）。打开链接后进入 Veil 文件夹，下载这个 zip。
 2. 解压后把 **Veil.app** 拖进「应用程序」（`/Applications`）。
 3. 打开 Veil。首次启动会打开设置窗口，可以在那里授予下面的权限。
 

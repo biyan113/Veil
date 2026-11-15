@@ -26,7 +26,7 @@ Veil is a small macOS menu bar utility that keeps your favorite menu bar icons o
 
 ## Installation
 
-1. Download `Veil-<version>-macos-arm64.zip` from [GitHub Releases](https://github.com/biyan113/Veil/releases).
+1. Download [Veil-1.0.2-macos-arm64.zip](https://pan.quark.cn/s/f415f22870ca) (Quark Drive, permanent link). Open the link, enter the Veil folder, and download the zip.
 2. Unzip it and drag **Veil.app** into `/Applications`.
 3. Open Veil. On first launch it opens its Settings window, where you can grant the permissions below.
 
