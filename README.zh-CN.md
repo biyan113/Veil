@@ -4,7 +4,7 @@
 
 Veil 是一个 macOS 菜单栏小工具：把常用的菜单栏图标收进 Veil，点一下就能打开，被 MacBook 刘海挡住的也一样。它不隐藏、不挪动任何图标，菜单栏保持原样。你挑出常用的图标，点 Veil 自己的菜单栏图标，就会落下一个托盘，从托盘里点开对应应用的菜单或弹出面板。
 
-![Veil 托盘](docs/images/tray.png)
+![Veil 托盘](promo/out/veil-01-cover.png)
 
 ## 功能
 
@@ -18,9 +18,9 @@ Veil 是一个 macOS 菜单栏小工具：把常用的菜单栏图标收进 Veil
 
 ## 截图
 
-| 设置 › 布局 | 设置 › 通用 |
+| 设置 › 布局 | 绕开刘海 |
 | --- | --- |
-| ![布局设置](docs/images/settings-layout.png) | ![通用设置](docs/images/settings-general.png) |
+| ![布局设置](promo/out/veil-03-layout.png) | ![打开被刘海挡住的图标](promo/out/veil-02-notch.png) |
 
 ## 下载安装
 

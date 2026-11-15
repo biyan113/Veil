@@ -4,7 +4,7 @@
 
 Veil is a small macOS menu bar utility that keeps your favorite menu bar icons one click away, including the ones hidden behind the MacBook notch. It does not hide or rearrange anything: your menu bar stays exactly as it is. You pick the icons you use most, and Veil shows them in a tray that drops down from its own menu bar icon. Clicking an icon in the tray opens that app's menu or popover.
 
-![The Veil tray](docs/images/tray.png)
+![The Veil tray](promo/out/veil-01-cover.png)
 
 > The app's interface is currently in **Simplified Chinese** only.
 
@@ -20,9 +20,9 @@ Veil is a small macOS menu bar utility that keeps your favorite menu bar icons o
 
 ## Screenshots
 
-| Settings › Layout | Settings › General |
+| Settings › Layout | Around the notch |
 | --- | --- |
-| ![Layout settings](docs/images/settings-layout.png) | ![General settings](docs/images/settings-general.png) |
+| ![Layout settings](promo/out/veil-03-layout.png) | ![Opening an icon hidden by the notch](promo/out/veil-02-notch.png) |
 
 ## Installation
 
