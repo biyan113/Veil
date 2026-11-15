@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>Veil · 刘海</title>
+<link rel="stylesheet" href="common.css">
+<style>
+  :root { --u: 2.05px; }
+  /* MacBook 屏幕右上角的一段：黑色边框 + 圆角屏幕，下方渐隐 */
+  .bezel {
+    position: absolute; left: -60px; right: 52px; top: 548px; height: 600px;
+    background: #040405;
+    border-radius: 0 54px 0 0;
+    padding: 20px 20px 0 0;
+    box-shadow: 0 0 0 1.5px rgba(255,255,255,0.10), 0 40px 80px rgba(0,0,0,0.5);
+    -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
+  }
+  .screen {
+    position: relative; width: 100%; height: 100%;
+    border-radius: 0 36px 0 0; overflow: hidden;
+    background:
+      radial-gradient(520px 360px at 72% 40%, rgba(108, 138, 214, 0.38), transparent 70%),
+      radial-gradient(460px 300px at 26% 64%, rgba(70, 84, 150, 0.30), transparent 70%),
+      linear-gradient(180deg, #1a1e2c, #0e1018);
+  }
+  .screen .menubar { --bar: 37; padding-left: 0; }
+  .notch {
+    position: absolute; top: 0; height: calc(34 * var(--u)); width: calc(184 * var(--u));
+    background: #040405; border-radius: 0 0 calc(12 * var(--u)) calc(12 * var(--u)); z-index: 5;
+  }
+  .ghost { position: absolute; z-index: 6; display: flex; color: rgba(255,255,255,0.20); }
+  .ghost .mb { outline: 1.5px dashed rgba(140,179,255,0.55); outline-offset: -2px; }
+  .anno {
+    position: absolute; z-index: 7; font-size: 27px; color: var(--veil); letter-spacing: 0.02em; white-space: nowrap;
+  }
+  .anno::after { content: ""; position: absolute; left: 50%; top: calc(100% + 10px); width: 1.5px; height: 66px; background: linear-gradient(180deg, rgba(140,179,255,.7), rgba(140,179,255,0)); }
+  .points { top: 1192px; }
+</style>
+</head>
+<body>
+<div class="poster" id="p">
+  <div class="head">
+    <div class="mark"><img src="icon.png" alt="">Veil<span class="sep"></span><span class="topic">绕开刘海</span></div>
+    <div class="title">刘海挡住的，也能点开</div>
+    <div class="sub">在托盘里点一下，菜单就出现在它的正下方</div>
+  </div>
+
+  <div class="bezel"><div class="screen" id="scr">
+    <div class="menubar" id="bar">
+      <div class="mb"><i class="g" data-g="leaf"></i></div>
+      <div class="mb"><i class="g" data-g="note"></i></div>
+      <div class="mb"><i class="g" data-g="chart"></i></div>
+      <div class="mb" id="veil"><i class="g" data-g="veil-open"></i></div>
+      <div class="mb"><i class="g" data-g="battery" style="width:calc(19*var(--u))"></i></div>
+      <div class="mb"><i class="g" data-g="wifi"></i></div>
+      <div class="mb"><i class="g" data-g="toggles"></i></div>
+      <div class="mb text">周日 9:41</div>
+    </div>
+    <div class="notch" id="notch"></div>
+    <div class="ghost" id="ghost">
+      <div class="mb"><i class="g" data-g="cloud"></i></div>
+      <div class="mb"><i class="g" data-g="grid"></i></div>
+      <div class="mb"><i class="g" data-g="wave"></i></div>
+    </div>
+  </div></div>
+  <div class="anno" id="anno">被刘海挡住的图标</div>
+
+  <div class="tray" id="tray">
+    <div class="flow">
+      <div class="ti hover" id="hov"><i class="g" data-g="cloud"></i></div>
+      <div class="ti"><i class="g" data-g="grid"></i></div>
+      <div class="ti"><i class="g" data-g="wave"></i></div>
+      <div class="ti"><i class="g" data-g="bolt"></i></div>
+      <div class="ti"><i class="g" data-g="clip"></i></div>
+      <div class="ti"><i class="g" data-g="leaf"></i></div>
+    </div>
+    <div class="cap">点按打开 · 拖出托盘即可移除</div>
+  </div>
+
+  <div class="nmenu" id="menu">
+    <div class="mi"><span>打开主窗口</span></div>
+    <div class="mi sel"><span>整理当前窗口</span></div>
+    <div class="mi"><span>布局方案</span><span class="k">›</span></div>
+    <div class="sepr"></div>
+    <div class="mi"><span>偏好设置…</span><span class="k">⌘,</span></div>
+    <div class="sepr"></div>
+    <div class="mi"><span>退出</span><span class="k">⌘Q</span></div>
+  </div>
+  <i class="g cursor" id="cur" data-g="cursor"></i>
+
+  <div class="points">
+    <div class="point"><h3>挡住的照样能开</h3><p>不必挪动图标，<br>也不必退出别的应用</p></div>
+    <div class="point"><h3>菜单就在眼前</h3><p>标准菜单在托盘<br>图标的正下方重建</p></div>
+    <div class="point"><h3>一眼认得出</h3><p>托盘里显示图标在<br>菜单栏中的真实样子</p></div>
+  </div>
+</div>
+<script src="glyphs.js"></script>
+<script src="layout.js"></script>
+<script>
+  const u = veilU();
+  const P = p.getBoundingClientRect(), S = scr.getBoundingClientRect();
+  // 右侧图标排到刘海就排不下了：刘海紧挨在第一个可见图标左边，再往左的图标被它盖住
+  const firstRight = bar.querySelector(".mb").getBoundingClientRect();
+  notch.style.left = firstRight.left - S.left - 4 * u - notch.offsetWidth + "px";
+  ghost.style.top = (bar.offsetHeight - 22 * u) / 2 + "px";
+  ghost.style.left = notch.offsetLeft + notch.offsetWidth - ghost.offsetWidth - 6 * u + "px";
+  const g = ghost.getBoundingClientRect();
+  anno.style.left = g.left + g.width / 2 - P.left - anno.offsetWidth / 2 + "px";
+  anno.style.top = S.top - P.top - 20 - 36 - anno.offsetHeight + "px";
+
+  placeTray(tray, veil, bar);
+  // 镜像菜单：出现在被点按的托盘图标正下方
+  placeBelow(menu, hov, 2 * u);
+  const h = hov.getBoundingClientRect();
+  Object.assign(cur.style, { left: h.left + h.width * 0.6 - P.left + "px", top: h.top + h.height * 0.5 - P.top + "px" });
+</script>
+</body>
+</html>

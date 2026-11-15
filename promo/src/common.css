@@ -1,0 +1,245 @@
+/* Veil 宣传图 · 共享样式
+   色板取自应用图标：深蓝黑渐变底 + 浅蓝竖线 (0.55, 0.70, 1.00) */
+:root {
+  --ink: #08090d;
+  --night: #10121a;
+  --slate: #1b1e28;
+  --steel: #2a2e3a;
+  --mist: #eceff5;
+  --mist-2: rgba(236, 239, 245, 0.64);
+  --mist-3: rgba(236, 239, 245, 0.40);
+  --hair: rgba(236, 239, 245, 0.10);
+  --veil: #8cb3ff;
+  --veil-soft: rgba(140, 179, 255, 0.16);
+
+  --sans: "SF Pro Display", "SF Pro Text", -apple-system, "PingFang SC", sans-serif;
+  --text: "SF Pro Text", -apple-system, "PingFang SC", sans-serif;
+  --mono: ui-monospace, "SF Mono", "PingFang SC", monospace;
+
+  /* 界面示意的放大倍数：1 = 真实界面 1pt */
+  --u: 1.9px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; height: 1440px; background: var(--ink); }
+body {
+  font-family: var(--sans);
+  color: var(--mist);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "kern";
+  overflow: hidden;
+}
+
+/* ---------- 画布 ---------- */
+.poster {
+  position: relative;
+  width: 1080px;
+  height: 1440px;
+  overflow: hidden;
+  background:
+    radial-gradient(1100px 760px at 78% -6%, rgba(92, 122, 196, 0.26), transparent 62%),
+    radial-gradient(900px 700px at 8% 108%, rgba(60, 72, 110, 0.20), transparent 64%),
+    linear-gradient(180deg, #151822 0%, #0d0f15 46%, #08090d 100%);
+}
+/* 细颗粒，避免大面积渐变出现色带 */
+.poster::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* ---------- 标题区（系列统一） ---------- */
+.head {
+  position: absolute;
+  left: 96px;
+  right: 96px;
+  top: 132px;
+}
+.mark {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--sans);
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--mist-2);
+}
+.mark img { width: 50px; height: 50px; margin: -4px -2px -4px -6px; }
+.mark .sep { width: 1px; height: 20px; background: var(--hair); margin: 0 4px; }
+.mark .topic { font-weight: 500; color: var(--veil); font-size: 28px; letter-spacing: 0.04em; }
+.title {
+  margin-top: 40px;
+  font-size: 84px;
+  line-height: 1.14;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: var(--mist);
+}
+.sub {
+  margin-top: 24px;
+  font-size: 34px;
+  line-height: 1.55;
+  font-weight: 400;
+  color: var(--mist-2);
+  letter-spacing: 0.01em;
+}
+
+/* 浅蓝竖线：应用图标里那条线，系列的标志 */
+.seam {
+  position: absolute;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--veil) 0%, rgba(140, 179, 255, 0.55) 40%, rgba(140, 179, 255, 0) 100%);
+  box-shadow: 0 0 18px rgba(140, 179, 255, 0.55);
+}
+.beam {
+  position: absolute;
+  pointer-events: none;
+  background: radial-gradient(closest-side, rgba(140, 179, 255, 0.26), rgba(140, 179, 255, 0) 100%);
+  filter: blur(8px);
+}
+
+/* ---------- 要点 ---------- */
+.points {
+  position: absolute;
+  left: 96px;
+  right: 96px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 40px;
+  padding-top: 34px;
+  border-top: 1px solid var(--hair);
+}
+.point h3 {
+  font-size: 32px;
+  line-height: 1.4;
+  font-weight: 600;
+  color: var(--mist);
+}
+.point p {
+  margin-top: 10px;
+  font-size: 27px;
+  line-height: 1.5;
+  color: var(--mist-2);
+}
+
+/* ---------- 界面示意：菜单栏 ---------- */
+.menubar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: calc(var(--bar, 30) * var(--u));
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 calc(10 * var(--u));
+  background: rgba(22, 24, 33, 0.62);
+  backdrop-filter: blur(24px) saturate(140%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.92);
+}
+.mb {
+  position: relative;
+  flex: none;
+  height: calc(22 * var(--u));
+  min-width: calc(28 * var(--u));
+  padding: 0 calc(5 * var(--u));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: calc(5 * var(--u));
+}
+.mb .g { width: calc(16 * var(--u)); height: calc(16 * var(--u)); }
+.mb.wide .g { width: calc(19 * var(--u)); }
+.mb.text {
+  font-family: var(--text);
+  font-size: calc(13 * var(--u));
+  font-weight: 500;
+  letter-spacing: 0;
+  padding: 0 calc(7 * var(--u));
+}
+.mb.menu { font-family: var(--text); font-size: calc(13 * var(--u)); font-weight: 400; padding: 0 calc(8 * var(--u)); }
+.mb.menu.app { font-weight: 700; }
+
+.g { display: inline-block; flex: none; }
+.g svg { display: block; width: 100%; height: 100%; overflow: visible; }
+
+/* ---------- 界面示意：Veil 托盘（VeilBarPanel） ---------- */
+.tray {
+  position: absolute;
+  padding: calc(8 * var(--u)) calc(8 * var(--u)) calc(7 * var(--u));
+  border-radius: calc(16 * var(--u));
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.03) 60%),
+    rgba(34, 37, 48, 0.58);
+  backdrop-filter: blur(28px) saturate(170%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.13),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 calc(18 * var(--u)) calc(40 * var(--u)) rgba(0, 0, 0, 0.46),
+    0 calc(2 * var(--u)) calc(6 * var(--u)) rgba(0, 0, 0, 0.30);
+}
+.tray .flow { display: flex; flex-wrap: wrap; gap: calc(2 * var(--u)); max-width: calc(380 * var(--u)); }
+.ti {
+  position: relative;
+  height: calc(30 * var(--u));
+  min-width: calc(30 * var(--u));
+  padding: 0 calc(5 * var(--u));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: calc(8 * var(--u));
+  color: rgba(255, 255, 255, 0.92);
+}
+.ti .g { width: calc(16 * var(--u)); height: calc(16 * var(--u)); }
+.ti.hover { background: rgba(255, 255, 255, 0.10); }
+.ti.focus {
+  background: rgba(140, 179, 255, 0.15);
+  box-shadow: inset 0 0 0 calc(2 * var(--u)) var(--veil);
+}
+.tray .cap {
+  margin-top: calc(6 * var(--u));
+  text-align: center;
+  font-family: var(--text);
+  font-size: calc(10.5 * var(--u));
+  color: rgba(255, 255, 255, 0.42);
+  letter-spacing: 0.02em;
+}
+
+/* ---------- 界面示意：原生菜单 ---------- */
+.nmenu {
+  position: absolute;
+  padding: calc(5 * var(--u));
+  border-radius: calc(10 * var(--u));
+  background: rgba(40, 43, 54, 0.80);
+  backdrop-filter: blur(30px) saturate(160%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 calc(14 * var(--u)) calc(36 * var(--u)) rgba(0, 0, 0, 0.5);
+  font-family: var(--text);
+  font-size: calc(13 * var(--u));
+  color: rgba(255, 255, 255, 0.92);
+  min-width: calc(200 * var(--u));
+}
+.nmenu .mi {
+  display: flex;
+  justify-content: space-between;
+  gap: calc(24 * var(--u));
+  height: calc(22 * var(--u));
+  align-items: center;
+  padding: 0 calc(10 * var(--u));
+  border-radius: calc(5 * var(--u));
+}
+.nmenu .mi.sel { background: #3d6fd6; color: #fff; }
+.nmenu .mi .k { color: rgba(255, 255, 255, 0.42); font-family: var(--sans); letter-spacing: 0.04em; }
+.nmenu .mi.sel .k { color: rgba(255, 255, 255, 0.8); }
+.nmenu .mi.dim { color: rgba(255, 255, 255, 0.36); }
+.nmenu .sepr { height: 1px; margin: calc(5 * var(--u)) calc(10 * var(--u)); background: rgba(255, 255, 255, 0.10); }
+
+.cursor { position: absolute; width: calc(17 * var(--u)); height: calc(17 * var(--u)); filter: drop-shadow(0 2px 3px rgba(0,0,0,.45)); z-index: 20; }

@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>Veil · 布局</title>
+<link rel="stylesheet" href="common.css">
+<style>
+  :root { --u: 1.58px; --accent: #4f8cff; }
+  /* 设置窗口（深色模式）· 布局页，尺寸按 LayoutPaneController：宽 520pt */
+  .win {
+    position: absolute; left: 50%; top: 454px; width: calc(520 * var(--u)); transform: translateX(-50%);
+    border-radius: calc(14 * var(--u));
+    background: #1e2028;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.11), 0 50px 100px rgba(0,0,0,0.55), 0 0 0 1px rgba(0,0,0,0.6);
+    font-family: var(--text);
+    color: rgba(255,255,255,0.88);
+    overflow: hidden;
+  }
+  .tb { position: relative; height: calc(80 * var(--u)); background: #262833; border-bottom: 1px solid rgba(0,0,0,0.5); }
+  .lights { position: absolute; left: calc(14 * var(--u)); top: calc(12 * var(--u)); display: flex; gap: calc(8 * var(--u)); }
+  .lights i { width: calc(12 * var(--u)); height: calc(12 * var(--u)); border-radius: 50%; background: #4a4d58; }
+  .lights i:nth-child(1) { background: #ec6a5e; } .lights i:nth-child(2) { background: #f4bf4f; } .lights i:nth-child(3) { background: #61c554; }
+  .wtitle { position: absolute; top: calc(8 * var(--u)); left: 0; right: 0; text-align: center; font-size: calc(13 * var(--u)); font-weight: 600; color: rgba(255,255,255,0.85); }
+  .tabs { position: absolute; left: 0; right: 0; bottom: calc(7 * var(--u)); display: flex; justify-content: center; gap: calc(4 * var(--u)); }
+  .tab { width: calc(64 * var(--u)); height: calc(46 * var(--u)); border-radius: calc(7 * var(--u)); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: calc(3 * var(--u)); font-size: calc(11 * var(--u)); color: rgba(255,255,255,0.6); }
+  .tab .g { width: calc(20 * var(--u)); height: calc(20 * var(--u)); }
+  .tab.sel { background: rgba(255,255,255,0.09); color: var(--accent); }
+  .tab.sel span { color: rgba(255,255,255,0.88); }
+
+  .pane { padding: calc(20 * var(--u)) calc(24 * var(--u)) calc(16 * var(--u)); display: flex; flex-direction: column; gap: calc(14 * var(--u)); }
+  .ph { display: flex; justify-content: space-between; align-items: flex-start; }
+  .ph h4 { font-size: calc(15 * var(--u)); font-weight: 600; color: rgba(255,255,255,0.92); }
+  .ph p { margin-top: calc(3 * var(--u)); max-width: calc(420 * var(--u)); font-size: calc(11 * var(--u)); line-height: 1.4; color: rgba(255,255,255,0.55); }
+  .ph .g { width: calc(15 * var(--u)); height: calc(15 * var(--u)); color: rgba(255,255,255,0.55); margin-top: calc(2 * var(--u)); }
+  .zones { display: flex; flex-direction: column; gap: calc(8 * var(--u)); }
+  .st { display: flex; align-items: center; gap: calc(6 * var(--u)); padding-left: calc(2 * var(--u)); font-size: calc(12 * var(--u)); font-weight: 600; color: rgba(255,255,255,0.55); }
+  .st .g { width: calc(13 * var(--u)); height: calc(13 * var(--u)); }
+  .st b { font-family: var(--sans); font-weight: 500; font-size: calc(11 * var(--u)); color: rgba(255,255,255,0.3); font-variant-numeric: tabular-nums; }
+  .zone { padding: calc(8 * var(--u)) calc(10 * var(--u)); border-radius: calc(10 * var(--u)); background: rgba(255,255,255,0.07); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.10); display: flex; flex-wrap: wrap; gap: calc(4 * var(--u)); }
+  .zone.veil { border-radius: calc(12 * var(--u)); background: rgba(255,255,255,0.03); min-height: calc(60 * var(--u)); align-content: flex-start; margin-bottom: 0; }
+  .zone.veil.target { background: rgba(79,140,255,0.10); box-shadow: inset 0 0 0 calc(2 * var(--u)) var(--accent); }
+  .zones .gap18 { height: calc(10 * var(--u)); }
+  .chip { position: relative; width: calc(28 * var(--u)); height: calc(28 * var(--u)); border-radius: calc(6 * var(--u)); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.9); }
+  .chip .g { width: calc(16 * var(--u)); height: calc(16 * var(--u)); }
+  .chip.wide { width: calc(31 * var(--u)); }
+  .chip.wide .g { width: calc(19 * var(--u)); }
+  .chip.on { background: rgba(79,140,255,0.16); }
+  .chip.on::after { content: ""; position: absolute; right: 0; bottom: 0; width: calc(11 * var(--u)); height: calc(11 * var(--u)); background: var(--accent); border-radius: 50%;
+    -webkit-mask: radial-gradient(circle, #000 64%, transparent 66%); }
+  .chip.on .tick { position: absolute; right: calc(2.2 * var(--u)); bottom: calc(2.6 * var(--u)); width: calc(6.6 * var(--u)); height: calc(4 * var(--u)); border-left: calc(1.6 * var(--u)) solid #fff; border-bottom: calc(1.6 * var(--u)) solid #fff; transform: rotate(-48deg); z-index: 2; }
+  .chip.vchip { color: rgba(255,255,255,0.5); }
+  .chip.vchip .g { width: calc(14 * var(--u)); height: calc(14 * var(--u)); }
+  .chip.lift { opacity: 0.35; }
+  .drag { position: absolute; z-index: 10; background: rgba(60,64,78,0.92); box-shadow: 0 10px 24px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.14); }
+  .hint, .status { font-size: calc(11 * var(--u)); color: rgba(255,255,255,0.32); }
+  .hint { margin-top: calc(-6 * var(--u)); }
+
+  /* 键盘 */
+  .kb { position: absolute; left: 96px; right: 96px; top: 1158px; border-top: 1px solid var(--hair); padding-top: 34px; }
+  .kb h3 { font-size: 32px; font-weight: 600; color: var(--mist); }
+  .keys { margin-top: 30px; display: flex; justify-content: space-between; align-items: flex-start; }
+  .kg { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .kg .row { display: flex; gap: 6px; }
+  .kg span.l { font-size: 26px; color: var(--mist-2); white-space: nowrap; }
+  kbd {
+    min-width: 50px; height: 50px; padding: 0 12px; border-radius: 10px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: var(--sans); font-size: 24px; font-weight: 500; color: var(--mist);
+    background: linear-gradient(180deg, #2b2f3c, #20232d);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), inset 0 0 0 1px rgba(255,255,255,0.07), 0 3px 0 #0b0c11, 0 6px 14px rgba(0,0,0,0.35);
+  }
+  kbd.cjk { font-family: var(--text); font-size: 22px; }
+</style>
+</head>
+<body>
+<div class="poster" id="p">
+  <div class="head">
+    <div class="mark"><img src="icon.png" alt="">Veil<span class="sep"></span><span class="topic">整理</span></div>
+    <div class="title">把常用的收进来</div>
+    <div class="sub">点一下或拖进去，顺序由你来排</div>
+  </div>
+
+  <div class="win">
+    <div class="tb">
+      <div class="lights"><i></i><i></i><i></i></div>
+      <div class="wtitle">布局</div>
+      <div class="tabs">
+        <div class="tab sel"><i class="g" data-g="menubar"></i><span>布局</span></div>
+        <div class="tab"><i class="g" data-g="gear"></i><span>通用</span></div>
+        <div class="tab"><i class="g" data-g="info"></i><span>关于</span></div>
+      </div>
+    </div>
+    <div class="pane">
+      <div class="ph">
+        <div><h4>Veil 里的图标</h4><p>菜单栏保持原样。把常用的图标拖到下面，点 Veil 就能随时打开它们——被刘海挡住的也一样。</p></div>
+        <i class="g" data-g="refresh"></i>
+      </div>
+      <div class="zones">
+        <div class="st"><i class="g" data-g="menubar"></i>菜单栏上的全部图标<b>12</b></div>
+        <div class="zone">
+          <div class="chip on"><i class="g" data-g="cloud"></i><i class="tick"></i></div>
+          <div class="chip on"><i class="g" data-g="grid"></i><i class="tick"></i></div>
+          <div class="chip on"><i class="g" data-g="wave"></i><i class="tick"></i></div>
+          <div class="chip on"><i class="g" data-g="bolt"></i><i class="tick"></i></div>
+          <div class="chip on"><i class="g" data-g="clip"></i><i class="tick"></i></div>
+          <div class="chip lift" id="src"><i class="g" data-g="ring"></i></div>
+          <div class="chip"><i class="g" data-g="timer"></i></div>
+          <div class="chip"><i class="g" data-g="key"></i></div>
+          <div class="chip"><i class="g" data-g="note"></i></div>
+          <div class="chip"><i class="g" data-g="leaf"></i></div>
+          <div class="chip vchip"><i class="g" data-g="veil-closed"></i></div>
+          <div class="chip wide"><i class="g" data-g="battery"></i></div>
+          <div class="chip"><i class="g" data-g="wifi"></i></div>
+        </div>
+        <div class="gap18"></div>
+        <div class="st"><i class="g" data-g="tray"></i>点 Veil 时显示<b>5</b></div>
+        <div class="zone veil target" id="vz">
+          <div class="chip"><i class="g" data-g="cloud"></i></div>
+          <div class="chip"><i class="g" data-g="grid"></i></div>
+          <div class="chip"><i class="g" data-g="wave"></i></div>
+          <div class="chip"><i class="g" data-g="bolt"></i></div>
+          <div class="chip" id="last"><i class="g" data-g="clip"></i></div>
+        </div>
+        <div class="hint">点上面的图标即可加入或移除 · 在下面拖动可调整顺序 · 拖回上面即移除</div>
+      </div>
+      <div class="status">菜单栏共 12 个图标，其中 5 个收进了 Veil</div>
+    </div>
+  </div>
+  <div class="chip drag" id="drag"><i class="g" data-g="ring"></i></div>
+  <i class="g cursor" id="cur" data-g="cursor"></i>
+
+  <div class="kb">
+    <h3>托盘也能全程用键盘</h3>
+    <div class="keys">
+      <div class="kg"><div class="row"><kbd>⌥</kbd><kbd>⌘</kbd><kbd>B</kbd></div><span class="l">打开托盘</span></div>
+      <div class="kg"><div class="row"><kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd></div><span class="l">移动</span></div>
+      <div class="kg"><div class="row"><kbd>↩</kbd></div><span class="l">打开</span></div>
+      <div class="kg"><div class="row"><kbd>A</kbd><kbd>B</kbd><kbd>C</kbd></div><span class="l">输入名称跳转</span></div>
+      <div class="kg"><div class="row"><kbd>esc</kbd></div><span class="l">收起</span></div>
+    </div>
+  </div>
+</div>
+<script src="glyphs.js"></script>
+<script src="layout.js"></script>
+<script>
+  const u = veilU();
+  const P = p.getBoundingClientRect();
+  // 正在拖进下面那组：拖动中的图标停在最后一个图标右侧
+  const l = last.getBoundingClientRect();
+  drag.style.left = l.right - P.left + 22 * u + "px";
+  drag.style.top = l.top - P.top + 8 * u + "px";
+  const d = drag.getBoundingClientRect();
+  Object.assign(cur.style, { left: d.left + d.width * 0.55 - P.left + "px", top: d.top + d.height * 0.5 - P.top + "px" });
+</script>
+</body>
+</html>

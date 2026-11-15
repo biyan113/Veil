@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>Veil · 封面</title>
+<link rel="stylesheet" href="common.css">
+<style>
+  :root { --u: 2.45px; }
+  .poster { --bar: 30; }
+  .desk { /* 托盘背后一点桌面的色彩，让玻璃有东西可透 */
+    position: absolute; left: 0; top: -60px; width: 1080px; height: 560px;
+    background:
+      radial-gradient(420px 220px at 52% 46%, rgba(120, 150, 230, 0.32), transparent 70%),
+      radial-gradient(320px 200px at 30% 62%, rgba(80, 96, 160, 0.26), transparent 70%);
+    filter: blur(20px);
+  }
+  .hero {
+    position: absolute; left: 0; right: 0; top: 560px;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+  }
+  .hero img { width: 232px; height: 232px; margin-bottom: 18px; filter: drop-shadow(0 30px 50px rgba(0,0,0,.55)); }
+  .name {
+    font-family: "SF Pro Display", -apple-system, sans-serif;
+    font-size: 148px; line-height: 1; font-weight: 600; letter-spacing: -0.035em;
+    background: linear-gradient(180deg, #ffffff 0%, #c9d3e6 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    padding-bottom: 8px;
+  }
+  .slogan { margin-top: 44px; font-size: 60px; line-height: 1.3; font-weight: 600; letter-spacing: 0.02em; color: var(--mist); }
+  .tag { margin-top: 22px; font-size: 32px; line-height: 1.6; color: var(--mist-2); letter-spacing: 0.02em; }
+  .foot {
+    position: absolute; left: 96px; right: 96px; bottom: 88px;
+    display: flex; justify-content: center; gap: 0;
+    font-size: 28px; color: var(--mist-2); letter-spacing: 0.04em;
+  }
+  .foot span + span::before { content: ""; display: inline-block; width: 4px; height: 4px; border-radius: 50%; background: var(--mist-3); margin: 0 22px; vertical-align: middle; position: relative; top: -2px; }
+</style>
+</head>
+<body>
+<div class="poster" id="p">
+  <div class="desk"></div>
+  <div class="beam" id="beam"></div>
+
+  <div class="menubar" id="bar">
+    <div class="mb"><i class="g" data-g="leaf"></i></div>
+    <div class="mb"><i class="g" data-g="note"></i></div>
+    <div class="mb"><i class="g" data-g="battery" style="width:calc(19*var(--u))"></i></div>
+    <div class="mb"><i class="g" data-g="wifi"></i></div>
+    <div class="mb" id="veil"><i class="g" data-g="veil-open"></i></div>
+    <div class="mb"><i class="g" data-g="toggles"></i></div>
+    <div class="mb text">周日 9:41</div>
+  </div>
+
+  <div class="tray" id="tray">
+    <div class="flow">
+      <div class="ti"><i class="g" data-g="cloud"></i></div>
+      <div class="ti"><i class="g" data-g="wave"></i></div>
+      <div class="ti hover" id="hov"><i class="g" data-g="bolt"></i></div>
+      <div class="ti"><i class="g" data-g="clip"></i></div>
+      <div class="ti"><i class="g" data-g="ring"></i></div>
+      <div class="ti"><i class="g" data-g="timer"></i></div>
+      <div class="ti"><i class="g" data-g="key"></i></div>
+      <div class="ti"><i class="g" data-g="drop"></i></div>
+      <div class="ti"><i class="g" data-g="moon"></i></div>
+    </div>
+    <div class="cap">点按打开 · 拖出托盘即可移除</div>
+  </div>
+  <i class="g cursor" id="cur" data-g="cursor"></i>
+
+  <div class="hero">
+    <img src="icon.png" alt="">
+    <div class="name">Veil</div>
+    <div class="slogan">菜单栏不动，常用的一点即开</div>
+    <div class="tag">把常用图标收进 Veil，被刘海挡住的也一样</div>
+  </div>
+
+  <div class="foot"><span>macOS 菜单栏工具</span><span>开源免费</span><span>原生 AppKit</span></div>
+</div>
+<script src="glyphs.js"></script>
+<script src="layout.js"></script>
+<script>
+  const P = document.getElementById("p").getBoundingClientRect();
+  placeTray(tray, veil, bar);
+  // 光柱：从 Veil 图标垂直落下，穿过托盘
+  const v = veil.getBoundingClientRect();
+  const cx = (v.left + v.right) / 2 - P.left;
+  const t = tray.getBoundingClientRect();
+  Object.assign(beam.style, { left: (t.left + t.right) / 2 - P.left - 420 + "px", top: t.bottom - P.top - 120 + "px", width: "840px", height: "560px" });
+  const h = hov.getBoundingClientRect();
+  Object.assign(cur.style, { left: h.left + h.width * 0.58 - P.left + "px", top: h.top + h.height * 0.55 - P.top + "px" });
+</script>
+</body>
+</html>

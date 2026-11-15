@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>Veil · 轻、原生、开源</title>
+<link rel="stylesheet" href="common.css">
+<style>
+  .specs { position: absolute; left: 96px; right: 96px; top: 468px; }
+  .spec { display: grid; grid-template-columns: 132px 1fr; padding: 22px 0 24px; border-top: 1px solid var(--hair); }
+  .spec:last-child { border-bottom: 1px solid var(--hair); }
+  .spec .k { padding-top: 6px; font-size: 28px; font-weight: 500; color: var(--veil); letter-spacing: 0.08em; }
+  .spec .v { padding-left: 40px; }
+  .spec .v b { display: block; font-size: 40px; line-height: 1.2; font-weight: 600; color: var(--mist); letter-spacing: 0.005em; }
+  .spec .v b small { font-size: 0.62em; font-weight: 500; color: var(--mist-2); margin-left: 6px; }
+  .spec .v p { margin-top: 6px; font-size: 27px; line-height: 1.45; color: var(--mist-2); }
+  .specs .seam { left: 131px; top: 0; height: 100%; opacity: 0.9; }
+
+  .end { position: absolute; left: 96px; right: 96px; bottom: 96px; display: flex; align-items: center; gap: 28px; }
+  .end img { width: 112px; height: 112px; margin: -10px; filter: drop-shadow(0 16px 30px rgba(0,0,0,.5)); }
+  .end .url { font-family: var(--sans); font-size: 38px; font-weight: 500; color: var(--mist); letter-spacing: 0.005em; }
+  .end .by { margin-top: 8px; font-size: 28px; color: var(--mist-2); }
+</style>
+</head>
+<body>
+<div class="poster">
+  <div class="head">
+    <div class="mark"><img src="icon.png" alt="">Veil<span class="sep"></span><span class="topic">开源</span></div>
+    <div class="title">轻、原生、开源</div>
+    <div class="sub">小而专注，数据不离开你的 Mac</div>
+  </div>
+
+  <div class="specs">
+    <div class="seam"></div>
+    <div class="spec"><div class="k">体积</div><div class="v"><b>约 400 KB</b><p>安装包大小 · 原生 AppKit 编写</p></div></div>
+    <div class="spec"><div class="k">隐私</div><div class="v"><b>不联网</b><p>源码里没有联网代码，图标截图只存在本机</p></div></div>
+    <div class="spec"><div class="k">权限</div><div class="v"><b>只要两项</b><p>辅助功能（必需）· 屏幕录制（可选）</p></div></div>
+    <div class="spec"><div class="k">许可</div><div class="v"><b>GPL-3.0 开源 · 免费</b><p>源码公开，可以自己构建</p></div></div>
+    <div class="spec"><div class="k">系统</div><div class="v"><b>macOS 14 或更新</b><p>需要 Apple 芯片的 Mac</p></div></div>
+  </div>
+
+  <div class="end">
+    <img src="icon.png" alt="">
+    <div><div class="url">github.com/biyan113/Veil</div><div class="by">@字节笔记本</div></div>
+  </div>
+</div>
+<script src="glyphs.js"></script>
+</body>
+</html>
